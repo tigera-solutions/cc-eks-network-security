@@ -50,7 +50,7 @@ What changed, who did it, and when? This information is critical for security. N
 
 ---
 
-[:arrow_right: Module 8 - Clean up](/modules/module-8-clean-up.md)  
+[:arrow_right: Module 8 - Clean up](module-8-clean-up.md)  
 
-[:arrow_left: Module 6 - Realtime Container Thread Defence](/modules/module-6-threat-defence.md)  
-[:leftwards_arrow_with_hook: Back to Main](/README.md)  
+[:arrow_left: Module 6 - Realtime Container Thread Defence](module-6-threat-defence.md)  
+[:leftwards_arrow_with_hook: Back to Main](../README.md)  

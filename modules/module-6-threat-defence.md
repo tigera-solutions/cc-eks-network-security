@@ -52,7 +52,7 @@ Our threat detection engine also monitors activity within the containers running
 
 ---
 
-[:arrow_right: Module 7 - Quarantine Infected Workloads and KSPM](modules/module-7-quarantine-kspm.md)  
+[:arrow_right: Module 7 - Quarantine Infected Workloads and KSPM](module-7-quarantine-kspm.md)  
 
-[:arrow_left: Module 5 - Configuring IDS protection and Workload-Centric WAF](modules/module-5-ids-waf.md)  
+[:arrow_left: Module 5 - Configuring IDS protection and Workload-Centric WAF](module-5-ids-waf.md)  
 [:leftwards_arrow_with_hook: Back to Main](../README.md)  
