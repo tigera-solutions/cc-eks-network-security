@@ -70,34 +70,47 @@ We recommend creating a global default deny policy after you complete writing po
        - Select ```+Add Namespace Selector``` under the ```OR```
      - On the field `Type` select both checkboxes: Ingress and Egress.
      - You are done. Click `Stage` on the top-right of your page.
+    
+   <img width="842" alt="Screenshot 2024-02-29 at 11 22 27 AM" src="https://github.com/tigera-solutions/cc-eks-network-security/assets/117195889/0e73d78d-1610-4472-b6bf-8534e9270007">
 
    The staged policy does not affect the traffic directly but allows you to view the policy impact if it were to be enforced. You can see the denied traffic in staged policy.
 
 2. Now, let's make use of the **Policy Recommender** feature to create the policies for the other workloads and isolate the namespaces properly.
 
-   Let's start with the `redis` database.
-
    - Select the correct cluster context on the top right, then in the left hamburger menu click on ```Policies > Recommendations```
+     
+     
+     <img width="518" alt="Screenshot 2024-02-29 at 10 46 59 AM" src="https://github.com/tigera-solutions/cc-eks-network-security/assets/117195889/f67c164f-e65e-4a3b-9b93-26bd8af5a4ea">
 
    - This takes you to the ```Policy Recommendations``` page where you need to hit the ```Enable Policy Recommendations``` (if not enabled) to spin up the Daemonset/pods for the feature.
 
    - Initially the page will be blank while the cluster traffic is analyzed.
 
+     <img width="1449" alt="Screenshot 2024-02-29 at 10 49 48 AM" src="https://github.com/tigera-solutions/cc-eks-network-security/assets/117195889/952817a0-fdc8-41d2-a0b0-3bbf209f3933">
+
    - Select ```Global Settings``` on the top right of this page and change the ```Stabilization Period``` to 5 minutes, and wait for the recommended policies to appear.
+  
+     <img width="489" alt="Screenshot 2024-02-29 at 10 50 18 AM" src="https://github.com/tigera-solutions/cc-eks-network-security/assets/117195889/a8292192-8666-48c8-bd24-f9d02a8c9c7a">
 
    *Stabilization Period is the learning time to capture flow logs so that a recommendation accurately reflects the cluster's traffic patterns.*
 
    *Processing Interval is the frequency to process new flow logs and refine recommendations.*
 
    - There will be two policies that show up, one per namespace of our workloads i.e the ```vote``` namespace and the ```wordpress``` namespace. Note that these are shown as ```Staged``` policies, i.e they are in a preview mode and not actually applied so that you can edit them and verify their impact before implementing.
+
+     <img width="1628" alt="Screenshot 2024-02-29 at 11 05 57 AM" src="https://github.com/tigera-solutions/cc-eks-network-security/assets/117195889/0a0ca78f-7d0d-44b2-90e3-6e7d78814931">
   
    - Preview the ```vote-***``` policy by clicking the arrow:
+
+     <img width="1621" alt="Screenshot 2024-02-29 at 11 08 55 AM" src="https://github.com/tigera-solutions/cc-eks-network-security/assets/117195889/ab488df0-a591-42b9-842c-1c2dca7c6621">
 
    - Select the `vote` namespace in the Namespace dropdown:
 
    - Once satisfied with the rules, click on ```Actions``` on the right and click ```Add to Polocy Board```, and confirm
 
    - Repeat the process with the ```wordpress``` namespace policy
+  
+     <img width="1631" alt="Screenshot 2024-02-29 at 11 14 18 AM" src="https://github.com/tigera-solutions/cc-eks-network-security/assets/117195889/a5a9bfcd-0e86-4e80-bbc8-979ef52aea03">
 
    - All the recommended policies are created in a special tier called `namespace-isolation`.
 
