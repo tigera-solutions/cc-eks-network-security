@@ -67,6 +67,7 @@ We recommend creating a global default deny policy after you complete writing po
        - Select Key... `kubernetes.io/metadata.name`
        - =
        - Select Value... `vote`
+       - Select ```+Add Namespace Selector``` under the ```OR```
      - On the field `Type` select both checkboxes: Ingress and Egress.
      - You are done. Click `Stage` on the top-right of your page.
 
@@ -123,7 +124,7 @@ For more information about tiers, please refer to the Calico Cloud documentation
 
 ---
 
-[:arrow_right: Module 5 - Configuring IDS protection and Workload-Centric WAF](modules/module-5-ids-waf.md)  
+[:arrow_right: Module 5 - Configuring IDS protection and Workload-Centric WAF](module-5-ids-waf.md)  
 
-[:arrow_left: Module 3 - Connect the AWS EKS cluster to Calico Cloud](modules/module-3-connect-calicocloud.md)  
+[:arrow_left: Module 3 - Connect the AWS EKS cluster to Calico Cloud](module-3-connect-calicocloud.md)  
 [:leftwards_arrow_with_hook: Back to Main](../README.md)  
