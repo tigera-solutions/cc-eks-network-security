@@ -36,7 +36,7 @@ This workshop is organized in sequential modules. One module will build up on to
 
 Module 1 - [Getting Started](modules/module-1-getting-started.md)  
 Module 2 - [Deploy an EKS cluster](modules/module-2-create-eks.md)  
-Module 3 - [Connect the Azure AKS cluster to Calico Cloud](modules/module-3-connect-calicocloud.md)  
+Module 3 - [Connect the EKS cluster to Calico Cloud](modules/module-3-connect-calicocloud.md)  
 Module 4 - [Security Guardrails for Network-based Threats](modules/module-4-security-guardrails.md)  
 Module 5 - [Configuring IDS protection and Workload-Centric WAF](modules/module-5-ids-waf.md)  
 Module 6 - [Detect Zero-Day Attacks with Threat Defence](modules/module-6-threat-defence.md)  
