@@ -1,4 +1,4 @@
-# Microsoft Azure: Hands-on AKS workshop </br> Detect and block container and network-based attacks in AKS
+# Amazon EKS Security Bootcamp: Hands-on EKS workshop </br> Implementing Kubernetes Network Security for EKS Containers and Workloads
 
 ## Welcome
 
