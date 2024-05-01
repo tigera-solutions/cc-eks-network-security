@@ -6,43 +6,45 @@ For this workshop, we will enable the IDS for the vote service and observe the a
 
 1. First enable the `Intrusion Detection`
 
-```yaml
-kubectl apply -f - <<-EOF
-apiVersion: operator.tigera.io/v1
-kind: IntrusionDetection
-metadata:
-  name: tigera-secure
-spec:
-  componentResources:
-  - componentName: DeepPacketInspection
-    resourceRequirements:
-      limits:
-        cpu: "1"
-        memory: 1Gi
-      requests:
-        cpu: 100m
-        memory: 100Mi
-EOF
-```
+   ```yaml
+   kubectl apply -f - <<-EOF
+   apiVersion: operator.tigera.io/v1
+   kind: IntrusionDetection
+   metadata:
+     name: tigera-secure
+   spec:
+     componentResources:
+     - componentName: DeepPacketInspection
+       resourceRequirements:
+         limits:
+           cpu: "1"
+           memory: 1Gi
+         requests:
+           cpu: 100m
+           memory: 100Mi
+   EOF
+   ```
 
 2. Next, create a `DeepPacketInspection` for the vote application in the vote namespace.
 
-```yaml
-kubectl apply -f - <<-EOF
-apiVersion: projectcalico.org/v3
-kind: DeepPacketInspection
-metadata:
-  name: dpi-ids-vote
-  namespace: vote
-spec:
-  selector: app == "vote"
-EOF
-```
+   ```yaml
+   kubectl apply -f - <<-EOF
+   apiVersion: projectcalico.org/v3
+   kind: DeepPacketInspection
+   metadata:
+     name: dpi-ids-vote
+     namespace: vote
+   spec:
+     selector: app == "vote"
+   EOF
+   ```
 
 3. Wait for the ```tigera-dpi``` pods to finish spinning up and be in a ```Running``` and ```Ready``` state:
 
    ```bash
-
+   NAME               READY   STATUS    RESTARTS   AGE
+   tigera-dpi-p4v96   1/1     Running   0          3m31s
+   tigera-dpi-wl68q   1/1     Running   0          3m31s
    ```
 
 4. Test the IDS emulating an attack to the vote service:
