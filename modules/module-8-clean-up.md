@@ -10,7 +10,7 @@
 2. Delete the EKS cluster.
 
    ```bash
-   eks delete cluster \
+   eksctl delete cluster \
      --name $CLUSTERNAME
      --region $REGION
    ```
