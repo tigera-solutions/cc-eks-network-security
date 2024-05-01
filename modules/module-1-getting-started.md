@@ -16,6 +16,8 @@ The simplest ways to configure your workspace environment is to either use your 
 
    - AWS CLI upgrade to v2
 
+     >skip this step of the Cloud9 instance already has aws v2 version. See output of `aws --version` command.
+
      [Installation instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
      Linux installation:
@@ -47,13 +49,13 @@ The simplest ways to configure your workspace environment is to either use your 
      Linux installation:
 
      ```bash
-     curl -o /tmp/kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.23.13/2022-10-31/bin/linux/amd64/kubectl
+     curl -o /tmp/kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.8/2024-04-19/bin/linux/amd64/kubectl
      sudo chmod +x /tmp/kubectl
      sudo mv /tmp/kubectl /usr/local/bin
      kubectl version --short --client
      ```
 
-   - git and Ncat
+   - `git` and `ncat`
 
      [Installation instructions - git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
      [Installation instructions - Ncat](https://nmap.org/ncat/)
