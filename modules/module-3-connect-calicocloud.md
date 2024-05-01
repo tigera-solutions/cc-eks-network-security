@@ -44,22 +44,42 @@ Issues with being unable to navigate menus in the UI are often due to browsers b
 
     ```bash
     namespace/calico-cloud created
+    namespace/calico-system created
+    namespace/tigera-access created
+    namespace/tigera-image-assurance created
+    namespace/tigera-license created
+    namespace/tigera-operator created
+    namespace/tigera-operator-cloud created
+    namespace/tigera-prometheus created
+    namespace/tigera-risk-system created
     customresourcedefinition.apiextensions.k8s.io/installers.operator.calicocloud.io created
     serviceaccount/calico-cloud-controller-manager created
-    role.rbac.authorization.k8s.io/calico-cloud-leader-election-role created
-    clusterrole.rbac.authorization.k8s.io/calico-cloud-metrics-reader created
-    clusterrole.rbac.authorization.k8s.io/calico-cloud-proxy-role created
-    rolebinding.rbac.authorization.k8s.io/calico-cloud-leader-election-rolebinding created
-    clusterrolebinding.rbac.authorization.k8s.io/calico-cloud-installer-rbac created
-    clusterrolebinding.rbac.authorization.k8s.io/calico-cloud-proxy-rolebinding created
-    configmap/calico-cloud-manager-config created
-    service/calico-cloud-controller-manager-metrics-service created
+    role.rbac.authorization.k8s.io/calico-cloud-installer-ns-role created
+    role.rbac.authorization.k8s.io/calico-cloud-installer-calico-system-role created
+    role.rbac.authorization.k8s.io/calico-cloud-installer-kube-system-role created
+    role.rbac.authorization.k8s.io/calico-cloud-installer-tigera-image-assurance-role created
+    role.rbac.authorization.k8s.io/calico-cloud-installer-tigera-prometheus-role created
+    role.rbac.authorization.k8s.io/calico-cloud-installer-tigera-risk-system-role created
+    clusterrole.rbac.authorization.k8s.io/calico-cloud-installer-role created
+    clusterrole.rbac.authorization.k8s.io/calico-cloud-installer-sa-creator-role created
+    clusterrole.rbac.authorization.k8s.io/calico-cloud-installer-tigera-operator-role created
+    rolebinding.rbac.authorization.k8s.io/calico-cloud-installer-ns-rbac created
+    rolebinding.rbac.authorization.k8s.io/calico-cloud-installer-calico-system-rbac created
+    rolebinding.rbac.authorization.k8s.io/calico-cloud-installer-kube-system-rbac created
+    rolebinding.rbac.authorization.k8s.io/calico-cloud-installer-tigera-access-rbac created
+    rolebinding.rbac.authorization.k8s.io/calico-cloud-installer-tigera-image-assurance-rbac created
+    rolebinding.rbac.authorization.k8s.io/calico-cloud-installer-tigera-license-rbac created
+    rolebinding.rbac.authorization.k8s.io/calico-cloud-installer-tigera-operator-rbac created
+    rolebinding.rbac.authorization.k8s.io/calico-cloud-installer-tigera-operator-rbac created
+    rolebinding.rbac.authorization.k8s.io/calico-cloud-installer-tigera-prometheus-rbac created
+    rolebinding.rbac.authorization.k8s.io/calico-cloud-installer-tigera-risk-system-rbac created
+    clusterrolebinding.rbac.authorization.k8s.io/calico-cloud-installer-crb created
     deployment.apps/calico-cloud-controller-manager created
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                    Dload  Upload   Total   Spent    Left  Speed
-    100   355  100   355    0     0    541      0 --:--:-- --:--:-- --:--:--   541
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    100   466  100   466    0     0   1372      0 --:--:-- --:--:-- --:--:--  1370
     secret/api-key created
-    installer.operator.calicocloud.io/kb-cc-eks-networksecurity-workshop created
+    installer.operator.calicocloud.io/default created
     ```
 
     Joining the cluster to Calico Cloud can take a few minutes. Meanwhile the Calico resources can be monitored until they are all reporting `Available` as `True`.
@@ -72,13 +92,16 @@ Issues with being unable to navigate menus in the UI are often due to browsers b
 
     ```bash
     NAME                            AVAILABLE   PROGRESSING   DEGRADED   SINCE
-    apiserver                       True        False         False      96s
-    calico                          True        False         False      16s
-    compliance                      True        False         False      21s
-    intrusion-detection             True        False         False      41s
-    log-collector                   True        False         False      21s
-    management-cluster-connection   True        False         False      51s
-    monitor                         True        False         False      2m1s
+    apiserver                       True        False         False      6m56s
+    calico                          True        False         False      4m36s
+    cloud-core                      True        False         False      6m23s
+    compliance                      True        False         False      5m16s
+    image-assurance                 True        False         False      5m50s
+    intrusion-detection             True        False         False      5m1s
+    log-collector                   True        False         False      4m41s
+    management-cluster-connection   True        False         False      5m41s
+    monitor                         True        False         False      7m26s
+    policy-recommendation           True        False         False      5m41s
     ```
 
     You can also monitor your cluster installation on the Calico Cloud UI. Go to the "**Managed Clusters**" section, select your cluster and expand the timestamp dropdown to see the installation logs.
@@ -112,17 +135,17 @@ When you change the cluster, the whole Calico Cloud context will change immediat
 By default, flow logs are collected every 5 minutes. We will decrease that time to 15 seconds, which will increase the amount of information we must store, and while that is not recommended for production environments, it will help to speed up the time in which events are seen within Calico observability features.
 
 ```bash
-kubectl patch felixconfiguration default -p '{"spec":{"flowLogsFlushInterval":"15s"}}'
-kubectl patch felixconfiguration default -p '{"spec":{"dnsLogsFlushInterval":"15s"}}'
-kubectl patch felixconfiguration default -p '{"spec":{"flowLogsFileAggregationKindForAllowed":1}}'
-kubectl patch felixconfiguration default -p '{"spec":{"flowLogsFileAggregationKindForDenied":0}}'
-kubectl patch felixconfiguration default -p '{"spec":{"dnsLogsFileAggregationKind":0}}'
+kubectl patch felixconfiguration default --type='merge' -p '{"spec":{"flowLogsFlushInterval":"15s"}}'
+kubectl patch felixconfiguration default --type='merge' -p '{"spec":{"dnsLogsFlushInterval":"15s"}}'
+kubectl patch felixconfiguration default --type='merge' -p '{"spec":{"flowLogsFileAggregationKindForAllowed":1}}'
+kubectl patch felixconfiguration default --type='merge' -p '{"spec":{"flowLogsFileAggregationKindForDenied":0}}'
+kubectl patch felixconfiguration default --type='merge' -p '{"spec":{"dnsLogsFileAggregationKind":0}}'
 ```
 
-Configure Felix to collect TCP stats - this uses eBPF TC program and requires miniumum Kernel version of v5.3.0/v4.18.0-193.
+Configure Felix to collect TCP stats - this uses eBPF TC program and requires minimum Kernel version of v5.3.0/v4.18.0-193.
 
 ```bash
-kubectl patch felixconfiguration default -p '{"spec":{"flowLogsCollectTcpStats":true}}'
+kubectl patch felixconfiguration default --type='merge' -p '{"spec":{"flowLogsCollectTcpStats":true}}'
 ```
 
 ---
