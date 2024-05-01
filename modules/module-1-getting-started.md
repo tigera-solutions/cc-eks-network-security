@@ -52,7 +52,7 @@ The simplest ways to configure your workspace environment is to either use your 
      curl -o /tmp/kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.8/2024-04-19/bin/linux/amd64/kubectl
      sudo chmod +x /tmp/kubectl
      sudo mv /tmp/kubectl /usr/local/bin
-     kubectl version --short --client
+     kubectl version --client
      ```
 
    - `git` and `ncat`
@@ -90,7 +90,7 @@ The simplest ways to configure your workspace environment is to either use your 
 3. Clone this repository
 
    ```bash
-   git clone https://github.com/tigera-solutions/cc-eks-container-security-workshop.git && cd cc-eks-container-security-workshop
+   git clone https://github.com/tigera-solutions/cc-eks-network-security.git && cd cc-eks-network-security
    ```
 
 4. Configure AMI role for Cloud9 workspace.
