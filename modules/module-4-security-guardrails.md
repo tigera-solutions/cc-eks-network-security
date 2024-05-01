@@ -75,7 +75,23 @@ We recommend creating a global default deny policy after you complete writing po
 
    The staged policy does not affect the traffic directly but allows you to view the policy impact if it were to be enforced. You can see the denied traffic in staged policy.
 
-2. Now, let's make use of the **Policy Recommender** feature to create the policies for the other workloads and isolate the namespaces properly.
+2. Test connections between application services
+
+   - Test connections between services within each application namespaces
+
+   ```bash
+   kubectl -n vote exec -t $(kubectl -n vote get po -l app=vote -ojsonpath='{.items[0].metadata.name}') -- sh -c 'curl -Ism2 result'
+   kubectl -n wordpress exec -t client -- sh -c 'curl -Ism2 wordpress'
+   ```
+
+   - Test connections between service in different namespaces
+
+   ```bash
+   kubectl -n vote exec -t $(kubectl -n vote get po -l app=vote -ojsonpath='{.items[0].metadata.name}') -- sh -c 'curl -Ism2 wordpress.wordpress'
+   kubectl -n wordpress exec -t client -- sh -c 'curl -Ism2 result.vote'
+   ```
+
+3. Now, let's make use of the **Policy Recommender** feature to create the policies for the other workloads and isolate the namespaces properly.
 
    - Select the correct cluster context on the top right, then in the left hamburger menu click on ```Policies > Recommendations```
      
@@ -116,7 +132,7 @@ We recommend creating a global default deny policy after you complete writing po
 
    - This adds the policies to the policy board in a ```Staged``` mode where you can preview the tiers and the effects of the policies before you enforce them. On the left hamburger menuy, click on ```Policies``` and ```Policies``` to go to the policy board to visualize the policies.
 
-3. If you create all the policies correctly, at some point, you will start seeing zero traffic being denied by your default-deny staged policy. At that point, you can go ahead and enforce the default-deny policy. Voilà! The workload namespaces are now secure.
+4. If you create all the policies correctly, at some point, you will start seeing zero traffic being denied by your default-deny staged policy. At that point, you can go ahead and enforce the default-deny policy. Voilà! The workload namespaces are now secure.
 
 ### About Tiers
 
