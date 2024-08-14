@@ -70,10 +70,10 @@ Calico Cloud WAF allows you to selectively run service traffic within your clust
 
 The WAF rules are based on the [Modsecurity Ruleset](https://owasp.org/www-project-modsecurity-core-rule-set/)
 
-1. Deploy the WAF by running the following command:
+1. Modify the default WAF ruleset by running the following command:
 
    ```bash
-   kubectl apply -f waf
+   kubectl apply -f waf/coraza/ruleset.configmap.yaml
    ```
 
 2. Open a new Cloud Shell session and start a pod to simulate an attack on the vote service.
