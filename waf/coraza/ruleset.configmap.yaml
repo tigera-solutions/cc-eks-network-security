@@ -1,0 +1,26 @@
+apiVersion: v1
+data:
+  tigera.conf: "# CoreRuleset activation\nInclude @coraza.conf-recommended\nInclude
+    @crs-setup.conf.example\nInclude @owasp_crs/*.conf\n\nSecRuleEngine On\n\n# --
+    Tigera CRS customizations ----------------------------------------------\n#\n#
+    Add some common content-types expected in micro-service traffic\nSecAction \\\n
+    \   \"id:900220,\\\n    phase:1,\\\n    nolog,\\\n    pass,\\\n    t:none,\\\n
+    \   setvar:'tx.allowed_request_content_type=|application/x-www-form-urlencoded|
+    |multipart/form-data| |multipart/related| |text/xml| |application/xml| |application/soap+xml|
+    |application/json| |application/cloudevents+json| |application/cloudevents-batch+json|
+    |application/grpc| |application/grpc+proto| |application/grpc+json| |application/octet-stream|'\"\n#
+    -- User CRS customizations--------------------------------------------------\n#
+    \n# Log4j exclusion rule\nSecRule REQUEST_LINE|ARGS|ARGS_NAMES|REQUEST_COOKIES|REQUEST_COOKIES_NAMES|REQUEST_HEADERS|XML://*|XML://@*
+    \"@rx (?:\\${[^}]{0,4}\\${|\\${(?:jndi|ctx))\" \\\n    \"id:1005,\\\n    phase:2,\\\n
+    \   deny,\\\n    t:none,t:urlDecodeUni,t:cmdline,\\\n    log,\\\n    msg:'Potential
+    Remote Command Execution: Log4j CVE-2021-44228', \\\n    tag:'application-multi',\\\n
+    \   tag:'language-java',\\\n    tag:'platform-multi',\\\n    tag:'attack-rce',\\\n
+    \   tag:'OWASP_CRS',\\\n    tag:'capec/1000/152/137/6',\\\n    tag:'PCI/6.5.2',\\\n
+    \   tag:'paranoia-level/1',\\\n    ver:'OWASP_CRS/3.4.0-dev',\\\n    severity:'CRITICAL',\\\n
+    \   multiMatch,\\\n    setvar:'tx.rce_score=+%{tx.critical_anomaly_score}',\\\n
+    \   setvar:'tx.anomaly_score_pl1=+%{tx.critical_anomaly_score}'\"\n"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: modsecurity-ruleset
+  namespace: tigera-operator
