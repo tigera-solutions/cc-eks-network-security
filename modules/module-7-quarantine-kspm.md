@@ -11,19 +11,19 @@ We have the `quarantine` policy created in the `security` tier. This policy has 
    - Test the connection to a local service
 
      ```bash
-     curl -m3 http://vote.vote
+     curl -Ism2 http://vote.vote
      ```
 
    - Test the connectivity with the Kubernetes API
 
      ```bash
-     curl -m3 -k https://kubernetes:443/versions
+     curl -Ism2 -k https://kubernetes:443/versions
      ```  
 
    - Test the connectivity with the internet
 
      ```bash
-     curl -m3 http://neverssl.com
+     curl -Ism2 http://neverssl.com
      ```  
 
 2. Label the attacker pod with `quarantine = true`.
