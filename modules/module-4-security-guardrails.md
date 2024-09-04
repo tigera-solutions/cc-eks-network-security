@@ -68,6 +68,9 @@ We recommend creating a global default deny policy after you complete writing po
        - =
        - Select Value... `vote`
        - Select ```+Add Namespace Selector``` under the ```OR```
+       - Select Key... `kubernetes.io/metadata.name`
+       - =
+       - Select Value... `wordpress`
      - On the field `Type` select both checkboxes: Ingress and Egress.
      - You are done. Click `Stage` on the top-right of your page.
     
